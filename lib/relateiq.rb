@@ -4,10 +4,11 @@ require 'faraday'
 require 'faraday_middleware'
 require 'json'
 
-require '/relateiq/riq_object'
-require '/relateiq/api_resource'
+require File.dirname(__FILE__) + '/relateiq/riq_object'
+require File.dirname(__FILE__) + '/relateiq/riq_list'
+require File.dirname(__FILE__) + '/relateiq/api_resource'
 
-require '/relateiq/list'
+require File.dirname(__FILE__) + '/relateiq/list'
 
 module RelateIQ
   class << self

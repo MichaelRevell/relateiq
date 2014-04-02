@@ -13,19 +13,19 @@ module RelateIQ
     end
 
     def self.find(id, params = {}, url = nil)
-      path = url.nil? ? "/#{name}s/#{id}" : url
+      path = url.nil? ? "#{name}s/#{id}" : url
       instance = self.new(id)
-      response = RelateIQ.get(path, params)[name]
+      response = RelateIQ.get(path, params)
       instance.refresh_from(response)
       instance
     end
 
     def self.all(params = {}, url = nil)
       params = {} unless params.is_a? Hash
-      plural = name.pluralize
-      path = url.nil? ? "/#{plural}" : url
+      plural = "#{name}s"
+      path = url.nil? ? "#{plural}" : url
       response = RelateIQ.get(path, params)
-      objects = response[plural] || []
+      objects = response['objects'] || []
       list = Array.new
       objects.each do |v|
         if v.class == Hash && v['id'].nil?
@@ -36,36 +36,39 @@ module RelateIQ
         c.refresh_from(v)
         list.push(c)
       end
-      pagination = response['pagination']
-      return RelateIQList.new(list, pagination)
+      return RiqList.new(list)
     end
 
     def update(params = {})
-      path = "/#{self.name}s/#{self.id}"
+      path = "#{self.name}s/#{self.id}"
       p = { self.name => params }.to_json
       response = RelateIQ.put(path, p)
     end
 
     def self.update(id, params = {})
-      path = "/#{name.pluralize}/#{id}"
+      plural = "#{name}s"
+      path = "#{plural}/#{id}"
       p = { self.name => params }.to_json
       response = RelateIQ.put(path, p)
     end
 
 
     def create(params = {})
-      path = "/#{self.name.pluralize}/#{self.id}"
+      plural = "#{name}s"
+      path = "#{plural}/#{self.id}"
       p = { self.name => params }.to_json
       resonse = RelateIQ.post(path, p)
     end
 
     def delete(params = {})
-      path = "/#{self.name.pluralize}/#{self.id}"
+      plural = "#{name}s"
+      path = "#{plural}/#{self.id}"
       RelateIQ.delete(path)
     end
 
     def self.delete(id, params = {})
-      path = "/#{self.name.pluralize}/#{id}"
+      plural = "#{name}s"
+      path = "#{plural}/#{id}"
       RelateIQ.delete(path)
     end
   end
