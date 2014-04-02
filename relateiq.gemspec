@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.description = "A lightweight ruby wrapper for the RelateIQ API"
   s.authors     = ["Michael Revell"]
   s.email       = 'michael@crowditlt.com'
-  s.homepage    = 'https://www.crowdtilt.com/learn/developers'
+  s.homepage    = 'https://github.com/MichaelRevell/relateiq'
   s.license = 'MIT'
 
   s.add_development_dependency 'bundler', '~> 1.0'
