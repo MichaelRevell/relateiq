@@ -1,4 +1,3 @@
-require 'active_support'
 require 'cgi'
 require 'faraday'
 require 'faraday_middleware'
